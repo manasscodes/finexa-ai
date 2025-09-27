@@ -6,12 +6,12 @@
   "scripts": {
     "build": "tsc && cp ./package.json ./dist",
     "start": "node dist/index.js",
-    "dev": "ts-node-dev --files src/index.ts"
+    "dev": "tsx watch src/index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
     "@google/genai": "^0.13.0",
     "axios": "^1.12.2",
@@ -47,6 +47,7 @@
     "@types/passport": "^1.0.17",
     "@types/passport-jwt": "^4.0.1",
     "ts-node-dev": "^2.0.0",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.2"
   }
 }
