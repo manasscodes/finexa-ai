@@ -4,6 +4,8 @@ import type { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import { Env } from "./config/env.config.js";
 import { HTTPSTATUS } from "./config/http.config.js";
+import { errorHandler } from "./middlewares/errorHandler.middleware.js";
+import { asyncHandler } from "./middlewares/asyncHandler.middleware.js";
 
 const app = express(); 
 const BASE_PATH = Env.BASE_PATH;
@@ -18,11 +20,14 @@ app.use(
      })
 ); 
 
-app.get("/", (req: Request, res: Response , next:NextFunction) => {
-     res.status(HTTPSTATUS.OK).json({
-          message: "hello from Finexa server",
-     })
-});
+app.get("/", asyncHandler (async (req: Request, res: Response , next:NextFunction) => {
+          res.status(HTTPSTATUS.OK).json({
+               message: "hello from Finexa server",
+          })
+     
+}));
+
+app.use(errorHandler)
 
 
 app.listen(Env.PORT, () => {
