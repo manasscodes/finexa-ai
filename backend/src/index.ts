@@ -6,6 +6,7 @@ import { Env } from "./config/env.config.js";
 import { HTTPSTATUS } from "./config/http.config.js";
 import { errorHandler } from "./middlewares/errorHandler.middleware.js";
 import { asyncHandler } from "./middlewares/asyncHandler.middleware.js";
+import connectDatabase from "./config/database.config.js";
 
 const app = express(); 
 const BASE_PATH = Env.BASE_PATH;
@@ -30,6 +31,7 @@ app.get("/", asyncHandler (async (req: Request, res: Response , next:NextFunctio
 app.use(errorHandler)
 
 
-app.listen(Env.PORT, () => {
+app.listen(Env.PORT, async () => {
+     await connectDatabase();
      console.log(`Server is running on port ${Env.PORT} in ${Env.NODE_ENV} mode`);
 })
