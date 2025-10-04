@@ -8,30 +8,31 @@ import { errorHandler } from "./middlewares/errorHandler.middleware.js";
 import { asyncHandler } from "./middlewares/asyncHandler.middleware.js";
 import connectDatabase from "./config/database.config.js";
 
-const app = express(); 
+const app = express();
 const BASE_PATH = Env.BASE_PATH;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(
-     cors({
-          origin: Env.FRONTEND_URL,
-          credentials: true,
-     })
-); 
+  cors({
+    origin: Env.FRONTEND_URL,
+    credentials: true,
+  })
+);
 
-app.get("/", asyncHandler (async (req: Request, res: Response , next:NextFunction) => {
-          res.status(HTTPSTATUS.OK).json({
-               message: "hello from Finexa server",
-          })
-     
-}));
+app.get(
+  "/",
+  asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    res.status(HTTPSTATUS.OK).json({
+      message: "hello from Finexa server",
+    });
+  })
+);
 
-app.use(errorHandler)
-
+app.use(errorHandler);
 
 app.listen(Env.PORT, async () => {
-     await connectDatabase();
-     console.log(`Server is running on port ${Env.PORT} in ${Env.NODE_ENV} mode`);
-})
+  await connectDatabase();
+  console.log(`Server is running on port ${Env.PORT} in ${Env.NODE_ENV} mode`);
+});
